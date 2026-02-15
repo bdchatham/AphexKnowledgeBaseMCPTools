@@ -31,12 +31,11 @@ async function main(): Promise<void> {
     .description("Discover packages and run SCIP indexing across a workspace")
     .requiredOption("-w, --workspace <path>", "Path to the workspace root")
     .option("-p, --packages <list>", "Comma-separated package names to index", splitList)
-    .option("-f, --force", "Force re-index regardless of change detection")
-    .action(async (opts: { workspace: string; packages?: string[]; force?: boolean }) => {
+    .action(async (opts: { workspace: string; packages?: string[] }) => {
       const result = await indexWorkspace({
         workspacePath: opts.workspace,
         packages: opts.packages,
-        force: opts.force ?? false,
+        force: true,
       });
       console.log(JSON.stringify(result, null, 2));
       process.exitCode = result.success ? 0 : 1;
@@ -47,12 +46,11 @@ async function main(): Promise<void> {
     .description("Sync SCIP indexes and documentation to the Code Graph and Vector Store")
     .requiredOption("-w, --workspace <path>", "Path to the workspace root")
     .option("-p, --packages <list>", "Comma-separated package names to sync", splitList)
-    .option("-f, --force", "Force sync regardless of change detection")
-    .action(async (opts: { workspace: string; packages?: string[]; force?: boolean }) => {
+    .action(async (opts: { workspace: string; packages?: string[] }) => {
       const result = await syncToKnowledgeBase({
         workspacePath: opts.workspace,
         packages: opts.packages,
-        force: opts.force ?? false,
+        force: true,
       });
       console.log(JSON.stringify(result, null, 2));
       process.exitCode = result.success ? 0 : 1;
