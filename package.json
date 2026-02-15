@@ -5,7 +5,8 @@
   "type": "module",
   "main": "dist/server.js",
   "bin": {
-    "aphex-knowledge-base-mcp-tools": "dist/server.js"
+    "aphex-knowledge-base-mcp-tools": "dist/server.js",
+    "aphex-kb": "dist/cli.js"
   },
   "scripts": {
     "build": "tsc",
@@ -31,6 +32,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
+    "commander": "^14.0.3",
     "protobufjs": "^8.0.0"
   },
   "devDependencies": {
