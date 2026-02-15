@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Archon Documentation MCP Tools API
 
 ## MCP Tool Interface Overview
@@ -565,3 +566,33 @@ const result = arnLibrary.validate('invalid-arn');
 **Source**
 - `src/lib/arn.ts` - ARN library implementation
 - `src/types/arn.ts` - ARN type definitions
+=======
+# API
+
+## Overview
+
+[Describe the API purpose and design]
+
+## Endpoints
+
+[Document API endpoints, methods, and parameters]
+
+## Authentication
+
+[Describe authentication mechanisms]
+
+## Request/Response Formats
+
+[Document request and response formats]
+
+## Error Handling
+
+[Describe error codes and handling]
+
+## Integration Examples
+
+[Provide integration examples]
+
+**Source**
+[Add references to relevant API implementation files]
+>>>>>>> aaf307eb5fccd13f2011729bcfa32111e464d9e2
