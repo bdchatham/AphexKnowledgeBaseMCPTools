@@ -24,7 +24,7 @@ RUN npm install -g @sourcegraph/scip-typescript
 
 # Go runtime (needed by scip-go to resolve modules)
 COPY --from=golang:1.22-bookworm /usr/local/go /usr/local/go
-ENV PATH="/usr/local/go/bin:${PATH}"
+ENV PATH="/usr/local/go/bin:/root/go/bin:${PATH}"
 
 # scip-go
 RUN go install github.com/sourcegraph/scip-go/cmd/scip-go@latest
