@@ -1,0 +1,14 @@
+{
+  "name": "@example/multi-language",
+  "version": "1.0.0",
+  "description": "Multi-language test fixture with Go and TypeScript",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "build:go": "go build -o bin/main ."
+  },
+  "keywords": ["test", "fixture", "multi-language"],
+  "author": "Test Author",
+  "license": "MIT"
+}

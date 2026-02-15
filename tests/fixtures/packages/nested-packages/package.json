@@ -1,0 +1,12 @@
+{
+  "name": "@example/nested-packages",
+  "version": "1.0.0",
+  "description": "Root package for nested packages test fixture",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces"
+  }
+}

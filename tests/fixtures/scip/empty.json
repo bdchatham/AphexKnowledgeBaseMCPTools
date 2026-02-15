@@ -1,0 +1,12 @@
+{
+  "metadata": {
+    "version": 0,
+    "toolInfo": {
+      "name": "test-indexer",
+      "version": "1.0.0"
+    },
+    "projectRoot": "file:///test-project"
+  },
+  "documents": [],
+  "externalSymbols": []
+}

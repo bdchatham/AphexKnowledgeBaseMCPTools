@@ -1,0 +1,237 @@
+{
+  "metadata": {
+    "version": 0,
+    "toolInfo": {
+      "name": "scip-typescript",
+      "version": "0.3.0"
+    },
+    "projectRoot": "file:///project"
+  },
+  "documents": [
+    {
+      "language": "typescript",
+      "relativePath": "src/interfaces.ts",
+      "symbols": [
+        {
+          "symbol": "scip-typescript npm test-package 1.0.0 src/interfaces.ts IRepository#",
+          "documentation": [
+            "Base repository interface."
+          ],
+          "kind": 21,
+          "displayName": "IRepository"
+        },
+        {
+          "symbol": "scip-typescript npm test-package 1.0.0 src/interfaces.ts IRepository#findById().",
+          "documentation": [
+            "Find an entity by ID."
+          ],
+          "kind": 27,
+          "displayName": "findById",
+          "enclosingSymbol": "scip-typescript npm test-package 1.0.0 src/interfaces.ts IRepository#"
+        }
+      ],
+      "occurrences": [
+        {
+          "range": [
+            0,
+            17,
+            28
+          ],
+          "symbol": "scip-typescript npm test-package 1.0.0 src/interfaces.ts IRepository#",
+          "symbolRoles": 1
+        },
+        {
+          "range": [
+            1,
+            2,
+            10
+          ],
+          "symbol": "scip-typescript npm test-package 1.0.0 src/interfaces.ts IRepository#findById().",
+          "symbolRoles": 1
+        }
+      ]
+    },
+    {
+      "language": "typescript",
+      "relativePath": "src/base.ts",
+      "symbols": [
+        {
+          "symbol": "scip-typescript npm test-package 1.0.0 src/base.ts BaseEntity#",
+          "documentation": [
+            "Base entity class with common properties."
+          ],
+          "kind": 7,
+          "displayName": "BaseEntity"
+        },
+        {
+          "symbol": "scip-typescript npm test-package 1.0.0 src/base.ts BaseEntity#id.",
+          "documentation": [
+            "Entity identifier."
+          ],
+          "kind": 39,
+          "displayName": "id",
+          "enclosingSymbol": "scip-typescript npm test-package 1.0.0 src/base.ts BaseEntity#"
+        }
+      ],
+      "occurrences": [
+        {
+          "range": [
+            0,
+            21,
+            31
+          ],
+          "symbol": "scip-typescript npm test-package 1.0.0 src/base.ts BaseEntity#",
+          "symbolRoles": 1
+        },
+        {
+          "range": [
+            1,
+            2,
+            4
+          ],
+          "symbol": "scip-typescript npm test-package 1.0.0 src/base.ts BaseEntity#id.",
+          "symbolRoles": 1
+        }
+      ]
+    },
+    {
+      "language": "typescript",
+      "relativePath": "src/UserRepository.ts",
+      "symbols": [
+        {
+          "symbol": "scip-typescript npm test-package 1.0.0 src/UserRepository.ts UserRepository#",
+          "documentation": [
+            "Repository for user entities."
+          ],
+          "kind": 7,
+          "displayName": "UserRepository",
+          "relationships": [
+            {
+              "symbol": "scip-typescript npm test-package 1.0.0 src/interfaces.ts IRepository#",
+              "isImplementation": true
+            }
+          ]
+        },
+        {
+          "symbol": "scip-typescript npm test-package 1.0.0 src/UserRepository.ts UserRepository#findById().",
+          "documentation": [
+            "Find a user by ID."
+          ],
+          "kind": 27,
+          "displayName": "findById",
+          "enclosingSymbol": "scip-typescript npm test-package 1.0.0 src/UserRepository.ts UserRepository#",
+          "relationships": [
+            {
+              "symbol": "scip-typescript npm test-package 1.0.0 src/utils.ts validateId.",
+              "isReference": true
+            }
+          ]
+        }
+      ],
+      "occurrences": [
+        {
+          "range": [
+            2,
+            13,
+            27
+          ],
+          "symbol": "scip-typescript npm test-package 1.0.0 src/UserRepository.ts UserRepository#",
+          "symbolRoles": 1
+        },
+        {
+          "range": [
+            5,
+            2,
+            10
+          ],
+          "symbol": "scip-typescript npm test-package 1.0.0 src/UserRepository.ts UserRepository#findById().",
+          "symbolRoles": 1
+        },
+        {
+          "range": [
+            0,
+            9,
+            20
+          ],
+          "symbol": "scip-typescript npm test-package 1.0.0 src/interfaces.ts IRepository#",
+          "symbolRoles": 2
+        },
+        {
+          "range": [
+            6,
+            11,
+            21
+          ],
+          "symbol": "scip-typescript npm test-package 1.0.0 src/utils.ts validateId.",
+          "symbolRoles": 8
+        }
+      ]
+    },
+    {
+      "language": "typescript",
+      "relativePath": "src/User.ts",
+      "symbols": [
+        {
+          "symbol": "scip-typescript npm test-package 1.0.0 src/User.ts User#",
+          "documentation": [
+            "User entity."
+          ],
+          "kind": 7,
+          "displayName": "User",
+          "relationships": [
+            {
+              "symbol": "scip-typescript npm test-package 1.0.0 src/base.ts BaseEntity#",
+              "isTypeDefinition": true
+            }
+          ]
+        }
+      ],
+      "occurrences": [
+        {
+          "range": [
+            2,
+            13,
+            17
+          ],
+          "symbol": "scip-typescript npm test-package 1.0.0 src/User.ts User#",
+          "symbolRoles": 1
+        },
+        {
+          "range": [
+            0,
+            9,
+            19
+          ],
+          "symbol": "scip-typescript npm test-package 1.0.0 src/base.ts BaseEntity#",
+          "symbolRoles": 2
+        }
+      ]
+    },
+    {
+      "language": "typescript",
+      "relativePath": "src/utils.ts",
+      "symbols": [
+        {
+          "symbol": "scip-typescript npm test-package 1.0.0 src/utils.ts validateId.",
+          "documentation": [
+            "Validates an entity ID."
+          ],
+          "kind": 17,
+          "displayName": "validateId"
+        }
+      ],
+      "occurrences": [
+        {
+          "range": [
+            0,
+            16,
+            26
+          ],
+          "symbol": "scip-typescript npm test-package 1.0.0 src/utils.ts validateId.",
+          "symbolRoles": 1
+        }
+      ]
+    }
+  ],
+  "externalSymbols": []
+}

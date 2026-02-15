@@ -1,0 +1,182 @@
+{
+  "metadata": {
+    "version": 0,
+    "toolInfo": {
+      "name": "scip-typescript",
+      "version": "0.3.0"
+    },
+    "projectRoot": "file:///project"
+  },
+  "documents": [
+    {
+      "language": "typescript",
+      "relativePath": "src/models/User.ts",
+      "symbols": [
+        {
+          "symbol": "scip-typescript npm test-package 1.0.0 src/models/User.ts `User.ts`/",
+          "documentation": [
+            "User model module"
+          ],
+          "kind": 28,
+          "displayName": "User.ts"
+        },
+        {
+          "symbol": "scip-typescript npm test-package 1.0.0 src/models/User.ts User#",
+          "documentation": [
+            "Represents a user in the system."
+          ],
+          "kind": 7,
+          "displayName": "User",
+          "enclosingSymbol": "scip-typescript npm test-package 1.0.0 src/models/User.ts `User.ts`/"
+        },
+        {
+          "symbol": "scip-typescript npm test-package 1.0.0 src/models/User.ts User#getName().",
+          "documentation": [
+            "Gets the user's full name."
+          ],
+          "kind": 27,
+          "displayName": "getName",
+          "enclosingSymbol": "scip-typescript npm test-package 1.0.0 src/models/User.ts User#",
+          "signatureDocumentation": {
+            "text": "getName(): string"
+          }
+        },
+        {
+          "symbol": "scip-typescript npm test-package 1.0.0 src/models/User.ts User#name.",
+          "documentation": [
+            "The user's name."
+          ],
+          "kind": 39,
+          "displayName": "name",
+          "enclosingSymbol": "scip-typescript npm test-package 1.0.0 src/models/User.ts User#"
+        }
+      ],
+      "occurrences": [
+        {
+          "range": [
+            0,
+            0,
+            0
+          ],
+          "symbol": "scip-typescript npm test-package 1.0.0 src/models/User.ts `User.ts`/",
+          "symbolRoles": 1
+        },
+        {
+          "range": [
+            3,
+            13,
+            17
+          ],
+          "symbol": "scip-typescript npm test-package 1.0.0 src/models/User.ts User#",
+          "symbolRoles": 1
+        },
+        {
+          "range": [
+            4,
+            10,
+            14
+          ],
+          "symbol": "scip-typescript npm test-package 1.0.0 src/models/User.ts User#name.",
+          "symbolRoles": 1
+        },
+        {
+          "range": [
+            6,
+            2,
+            9
+          ],
+          "symbol": "scip-typescript npm test-package 1.0.0 src/models/User.ts User#getName().",
+          "symbolRoles": 1
+        }
+      ]
+    },
+    {
+      "language": "typescript",
+      "relativePath": "src/types/index.ts",
+      "symbols": [
+        {
+          "symbol": "scip-typescript npm test-package 1.0.0 src/types/index.ts UserId.",
+          "documentation": [
+            "Type alias for user identifiers."
+          ],
+          "kind": 52,
+          "displayName": "UserId"
+        },
+        {
+          "symbol": "scip-typescript npm test-package 1.0.0 src/types/index.ts IUserService#",
+          "documentation": [
+            "Interface for user service operations."
+          ],
+          "kind": 21,
+          "displayName": "IUserService"
+        }
+      ],
+      "occurrences": [
+        {
+          "range": [
+            0,
+            12,
+            18
+          ],
+          "symbol": "scip-typescript npm test-package 1.0.0 src/types/index.ts UserId.",
+          "symbolRoles": 1
+        },
+        {
+          "range": [
+            2,
+            17,
+            29
+          ],
+          "symbol": "scip-typescript npm test-package 1.0.0 src/types/index.ts IUserService#",
+          "symbolRoles": 1
+        }
+      ]
+    },
+    {
+      "language": "typescript",
+      "relativePath": "src/utils/helpers.ts",
+      "symbols": [
+        {
+          "symbol": "scip-typescript npm test-package 1.0.0 src/utils/helpers.ts formatDate.",
+          "documentation": [
+            "Formats a date to a human-readable string."
+          ],
+          "kind": 17,
+          "displayName": "formatDate",
+          "signatureDocumentation": {
+            "text": "function formatDate(date: Date): string"
+          }
+        },
+        {
+          "symbol": "scip-typescript npm test-package 1.0.0 src/utils/helpers.ts DEFAULT_FORMAT.",
+          "documentation": [
+            "Default date format string."
+          ],
+          "kind": 59,
+          "displayName": "DEFAULT_FORMAT"
+        }
+      ],
+      "occurrences": [
+        {
+          "range": [
+            0,
+            13,
+            27
+          ],
+          "symbol": "scip-typescript npm test-package 1.0.0 src/utils/helpers.ts DEFAULT_FORMAT.",
+          "symbolRoles": 1
+        },
+        {
+          "range": [
+            2,
+            16,
+            26
+          ],
+          "symbol": "scip-typescript npm test-package 1.0.0 src/utils/helpers.ts formatDate.",
+          "symbolRoles": 1
+        }
+      ]
+    }
+  ],
+  "externalSymbols": []
+}

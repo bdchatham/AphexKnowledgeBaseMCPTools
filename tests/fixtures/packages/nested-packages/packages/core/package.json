@@ -1,0 +1,10 @@
+{
+  "name": "@example/core",
+  "version": "1.0.0",
+  "description": "Core package - nested at depth 2",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  }
+}

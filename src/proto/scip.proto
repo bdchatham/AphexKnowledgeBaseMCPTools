@@ -1,0 +1,402 @@
+// SCIP Code Intelligence Protocol
+// Based on https://github.com/sourcegraph/scip/blob/main/scip.proto
+// This is a simplified version for parsing SCIP index files
+
+syntax = "proto3";
+
+package scip;
+
+// Index represents a complete SCIP index for a workspace rooted at a single directory.
+message Index {
+  // Metadata about the index
+  Metadata metadata = 1;
+  // Documents in the index
+  repeated Document documents = 2;
+  // External symbols referenced but defined elsewhere
+  repeated SymbolInformation external_symbols = 3;
+}
+
+// Metadata about the index
+message Metadata {
+  // Version of the SCIP protocol
+  ProtocolVersion version = 1;
+  // Information about the tool that produced the index
+  ToolInfo tool_info = 2;
+  // URI-encoded path to the project root
+  string project_root = 3;
+  // Text encoding of source files
+  TextEncoding text_document_encoding = 4;
+}
+
+// Version of the SCIP protocol
+enum ProtocolVersion {
+  UnspecifiedProtocolVersion = 0;
+}
+
+// Text encoding
+enum TextEncoding {
+  UnspecifiedTextEncoding = 0;
+  UTF8 = 1;
+  UTF16 = 2;
+}
+
+// Information about the indexer tool
+message ToolInfo {
+  // Name of the indexer
+  string name = 1;
+  // Version of the indexer
+  string version = 2;
+  // Command-line arguments
+  repeated string arguments = 3;
+}
+
+// Document represents a source file
+message Document {
+  // Language of the document
+  string language = 1;
+  // Path relative to project root
+  string relative_path = 2;
+  // Occurrences in this document
+  repeated Occurrence occurrences = 3;
+  // Symbols defined in this document
+  repeated SymbolInformation symbols = 4;
+  // Deprecated: use relative_path instead
+  string text = 5;
+  // Position encoding
+  PositionEncoding position_encoding = 6;
+}
+
+// Position encoding
+enum PositionEncoding {
+  UnspecifiedPositionEncoding = 0;
+  UTF8CodeUnitOffsetFromLineStart = 1;
+  UTF16CodeUnitOffsetFromLineStart = 2;
+  UTF32CodeUnitOffsetFromLineStart = 3;
+}
+
+// Occurrence represents a reference or definition of a symbol
+message Occurrence {
+  // Range in the document [startLine, startChar, endLine, endChar]
+  // If startLine == endLine, the array has 3 elements [line, startChar, endChar]
+  repeated int32 range = 1;
+  // Symbol name
+  string symbol = 2;
+  // Role of this occurrence (definition, reference, etc.)
+  int32 symbol_roles = 3;
+  // Override documentation for this occurrence
+  repeated string override_documentation = 4;
+  // Syntax kind
+  SyntaxKind syntax_kind = 5;
+  // Diagnostics at this location
+  repeated Diagnostic diagnostics = 6;
+  // Enclosing range
+  repeated int32 enclosing_range = 7;
+}
+
+// SymbolInformation contains metadata about a symbol
+message SymbolInformation {
+  // Symbol name (unique identifier)
+  string symbol = 1;
+  // Documentation strings
+  repeated string documentation = 2;
+  // Relationships to other symbols
+  repeated Relationship relationships = 3;
+  // Kind of symbol
+  Kind kind = 4;
+  // Display name
+  string display_name = 5;
+  // Signature documentation
+  SignatureDocumentation signature_documentation = 6;
+  // Enclosing symbol
+  string enclosing_symbol = 7;
+}
+
+// Relationship between symbols
+message Relationship {
+  // Target symbol
+  string symbol = 1;
+  // Is this a reference?
+  bool is_reference = 2;
+  // Is this an implementation?
+  bool is_implementation = 3;
+  // Is this a type definition?
+  bool is_type_definition = 4;
+  // Is this a definition?
+  bool is_definition = 5;
+}
+
+// Symbol kind
+enum Kind {
+  UnspecifiedKind = 0;
+  // Abstract types
+  AbstractMethod = 72;
+  // Accessors
+  Accessor = 73;
+  // Arrays
+  Array = 1;
+  // Assertions
+  Assertion = 2;
+  // Associated types
+  AssociatedType = 3;
+  // Attributes
+  Attribute = 4;
+  // Axioms
+  Axiom = 5;
+  // Booleans
+  Boolean = 6;
+  // Classes
+  Class = 7;
+  // Constants
+  Constant = 8;
+  // Constructors
+  Constructor = 9;
+  // Contracts
+  Contract = 62;
+  // Data types
+  DataFamily = 10;
+  // Delegates
+  Delegate = 74;
+  // Enums
+  Enum = 11;
+  // Enum members
+  EnumMember = 12;
+  // Errors
+  Error = 63;
+  // Events
+  Event = 13;
+  // Facts
+  Fact = 14;
+  // Fields
+  Field = 15;
+  // Files
+  File = 16;
+  // Functions
+  Function = 17;
+  // Getters
+  Getter = 18;
+  // Grammars
+  Grammar = 19;
+  // Instances
+  Instance = 20;
+  // Interfaces
+  Interface = 21;
+  // Keys
+  Key = 22;
+  // Languages
+  Lang = 23;
+  // Lemmas
+  Lemma = 24;
+  // Libraries
+  Library = 75;
+  // Lifetimes
+  LifetimeVariable = 25;
+  // Macros
+  Macro = 26;
+  // Methods
+  Method = 27;
+  // Mixins
+  Mixin = 76;
+  // Modifiers
+  Modifier = 64;
+  // Modules
+  Module = 28;
+  // Move types
+  MoveFunction = 65;
+  MoveStructure = 66;
+  MoveResource = 67;
+  // Namespaces
+  Namespace = 29;
+  // Null values
+  Null = 30;
+  // Numbers
+  Number = 31;
+  // Objects
+  Object = 32;
+  // Operators
+  Operator = 33;
+  // Packages
+  Package = 34;
+  // Package objects
+  PackageObject = 35;
+  // Parameters
+  Parameter = 36;
+  // Pattern bindings
+  PatternBinding = 37;
+  // Predicates
+  Predicate = 38;
+  // Properties
+  Property = 39;
+  // Protocols
+  Protocol = 40;
+  // Protocol methods
+  ProtocolMethod = 68;
+  // Pure virtual methods
+  PureVirtualMethod = 69;
+  // Quasi-quoters
+  Quasiquoter = 41;
+  // Self parameters
+  SelfParameter = 42;
+  // Setters
+  Setter = 43;
+  // Signatures
+  Signature = 44;
+  // Singleton classes
+  SingletonClass = 77;
+  // Singleton methods
+  SingletonMethod = 78;
+  // Static data members
+  StaticDataMember = 79;
+  // Static events
+  StaticEvent = 80;
+  // Static fields
+  StaticField = 81;
+  // Static methods
+  StaticMethod = 82;
+  // Static properties
+  StaticProperty = 83;
+  // Static variables
+  StaticVariable = 84;
+  // Strings
+  String = 45;
+  // Structs
+  Struct = 46;
+  // Subscripts
+  Subscript = 47;
+  // Tactics
+  Tactic = 48;
+  // Theorems
+  Theorem = 49;
+  // This parameters
+  ThisParameter = 50;
+  // Traits
+  Trait = 51;
+  // Trait methods
+  TraitMethod = 70;
+  // Type aliases
+  TypeAlias = 52;
+  // Type classes
+  TypeClass = 53;
+  // Type families
+  TypeFamily = 54;
+  // Type parameters
+  TypeParameter = 55;
+  // Types
+  Type = 56;
+  // Unions
+  Union = 57;
+  // Values
+  Value = 58;
+  // Variables
+  Variable = 59;
+  // Virtual methods
+  VirtualMethod = 71;
+}
+
+// Syntax kind for occurrences
+enum SyntaxKind {
+  option allow_alias = true;
+  UnspecifiedSyntaxKind = 0;
+  Comment = 1;
+  PunctuationDelimiter = 2;
+  PunctuationBracket = 3;
+  Keyword = 4;
+  IdentifierKeyword = 4;
+  IdentifierOperator = 5;
+  Identifier = 6;
+  IdentifierBuiltin = 7;
+  IdentifierNull = 8;
+  IdentifierConstant = 9;
+  IdentifierMutableGlobal = 10;
+  IdentifierParameter = 11;
+  IdentifierLocal = 12;
+  IdentifierShadowed = 13;
+  IdentifierNamespace = 14;
+  IdentifierModule = 14;
+  IdentifierFunction = 15;
+  IdentifierFunctionDefinition = 16;
+  IdentifierMacro = 17;
+  IdentifierMacroDefinition = 18;
+  IdentifierType = 19;
+  IdentifierBuiltinType = 20;
+  IdentifierAttribute = 21;
+  RegexEscape = 22;
+  RegexRepeated = 23;
+  RegexWildcard = 24;
+  RegexDelimiter = 25;
+  RegexJoin = 26;
+  StringLiteral = 27;
+  StringLiteralEscape = 28;
+  StringLiteralSpecial = 29;
+  StringLiteralKey = 30;
+  CharacterLiteral = 31;
+  NumericLiteral = 32;
+  BooleanLiteral = 33;
+  Tag = 34;
+  TagAttribute = 35;
+  TagDelimiter = 36;
+}
+
+// Diagnostic information
+message Diagnostic {
+  // Severity level
+  Severity severity = 1;
+  // Error code
+  string code = 2;
+  // Human-readable message
+  string message = 3;
+  // Source of the diagnostic
+  string source = 4;
+  // Related tags
+  repeated DiagnosticTag tags = 5;
+}
+
+// Diagnostic severity
+enum Severity {
+  UnspecifiedSeverity = 0;
+  Error = 1;
+  Warning = 2;
+  Information = 3;
+  Hint = 4;
+}
+
+// Diagnostic tags
+enum DiagnosticTag {
+  UnspecifiedDiagnosticTag = 0;
+  Unnecessary = 1;
+  Deprecated = 2;
+}
+
+// Signature documentation
+message SignatureDocumentation {
+  // Text of the signature
+  string text = 1;
+  // Value parameters
+  repeated ValueParameter value_parameters = 2;
+  // Type parameters
+  repeated TypeParameter type_parameters = 3;
+}
+
+// Value parameter
+message ValueParameter {
+  // Parameter name
+  string name = 1;
+  // Type expression
+  string tpe = 2;
+}
+
+// Type parameter
+message TypeParameter {
+  // Parameter name
+  string name = 1;
+  // Display name
+  string display_name = 2;
+}
+
+// Symbol roles (bit flags)
+// Definition = 0x1
+// Import = 0x2
+// WriteAccess = 0x4
+// ReadAccess = 0x8
+// Generated = 0x10
+// Test = 0x20
+// ForwardDefinition = 0x40

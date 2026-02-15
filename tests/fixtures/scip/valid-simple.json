@@ -1,0 +1,43 @@
+{
+  "metadata": {
+    "version": 0,
+    "toolInfo": {
+      "name": "scip-typescript",
+      "version": "0.3.0"
+    },
+    "projectRoot": "file:///project"
+  },
+  "documents": [
+    {
+      "language": "typescript",
+      "relativePath": "src/index.ts",
+      "symbols": [
+        {
+          "symbol": "scip-typescript npm test-package 1.0.0 src/index.ts greet.",
+          "documentation": [
+            "Greets a user by name.",
+            "@param name - The name to greet",
+            "@returns A greeting message"
+          ],
+          "kind": 17,
+          "displayName": "greet",
+          "signatureDocumentation": {
+            "text": "function greet(name: string): string"
+          }
+        }
+      ],
+      "occurrences": [
+        {
+          "range": [
+            5,
+            16,
+            21
+          ],
+          "symbol": "scip-typescript npm test-package 1.0.0 src/index.ts greet.",
+          "symbolRoles": 1
+        }
+      ]
+    }
+  ],
+  "externalSymbols": []
+}

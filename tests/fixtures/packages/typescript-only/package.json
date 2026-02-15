@@ -1,0 +1,17 @@
+{
+  "name": "@example/typescript-only",
+  "version": "1.0.0",
+  "description": "TypeScript-only test fixture package",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "keywords": ["test", "fixture"],
+  "author": "Test Author",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
