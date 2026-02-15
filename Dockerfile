@@ -12,13 +12,17 @@ RUN npm run build
 FROM node:20-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-      git curl ca-certificates jq kubectl \
+      git curl ca-certificates jq unzip \
     && rm -rf /var/lib/apt/lists/*
+
+# kubectl
+RUN curl -fsSL "https://dl.k8s.io/release/$(curl -fsSL https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
+      -o /usr/local/bin/kubectl && chmod +x /usr/local/bin/kubectl
 
 # scip-typescript (global)
 RUN npm install -g @sourcegraph/scip-typescript
 
-# scip-go — download pre-built linux/amd64 binary
+# scip-go — pre-built linux/amd64 binary
 ARG SCIP_GO_VERSION=v0.4.0
 RUN curl -fsSL "https://github.com/sourcegraph/scip-go/releases/download/${SCIP_GO_VERSION}/scip-go_linux_amd64" \
       -o /usr/local/bin/scip-go && chmod +x /usr/local/bin/scip-go
@@ -27,15 +31,14 @@ RUN curl -fsSL "https://github.com/sourcegraph/scip-go/releases/download/${SCIP_
 COPY --from=golang:1.22-bookworm /usr/local/go /usr/local/go
 ENV PATH="/usr/local/go/bin:${PATH}"
 
-# ---------- Kiro CLI ----------
-# TODO: Replace with actual Kiro CLI linux/amd64 installation.
-# Options:
-#   1. COPY a pre-downloaded binary:  COPY kiro-cli /usr/local/bin/kiro-cli
-#   2. Download from a release URL:   RUN curl -fsSL <url> -o /usr/local/bin/kiro-cli
-#   3. Install via package manager if one becomes available
-# The binary must be linux/amd64. Kiro API credentials are injected at
-# runtime via KIRO_API_KEY / KIRO_CLIENT_ID environment variables.
-# ---------------------------------
+# Kiro CLI
+RUN curl --proto '=https' --tlsv1.2 -sSf \
+      'https://desktop-release.q.us-east-1.amazonaws.com/latest/kirocli-x86_64-linux.zip' \
+      -o /tmp/kirocli.zip \
+    && unzip /tmp/kirocli.zip -d /tmp/kirocli \
+    && /tmp/kirocli/install.sh \
+    && rm -rf /tmp/kirocli /tmp/kirocli.zip
+ENV PATH="/root/.local/bin:${PATH}"
 
 # MCP tools (built artifacts + production deps only)
 WORKDIR /app
