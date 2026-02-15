@@ -22,21 +22,19 @@ RUN curl -fsSL "https://dl.k8s.io/release/$(curl -fsSL https://dl.k8s.io/release
 # scip-typescript (global)
 RUN npm install -g @sourcegraph/scip-typescript
 
-# scip-go — pre-built linux/amd64 binary
-ARG SCIP_GO_VERSION=v0.4.0
-RUN curl -fsSL "https://github.com/sourcegraph/scip-go/releases/download/${SCIP_GO_VERSION}/scip-go_linux_amd64" \
-      -o /usr/local/bin/scip-go && chmod +x /usr/local/bin/scip-go
-
 # Go runtime (needed by scip-go to resolve modules)
 COPY --from=golang:1.22-bookworm /usr/local/go /usr/local/go
 ENV PATH="/usr/local/go/bin:${PATH}"
+
+# scip-go
+RUN go install github.com/sourcegraph/scip-go/cmd/scip-go@latest
 
 # Kiro CLI
 RUN curl --proto '=https' --tlsv1.2 -sSf \
       'https://desktop-release.q.us-east-1.amazonaws.com/latest/kirocli-x86_64-linux.zip' \
       -o /tmp/kirocli.zip \
-    && unzip /tmp/kirocli.zip -d /tmp/kirocli \
-    && /tmp/kirocli/install.sh \
+    && unzip /tmp/kirocli.zip -d /tmp \
+    && KIRO_CLI_SKIP_SETUP=1 /tmp/kirocli/install.sh \
     && rm -rf /tmp/kirocli /tmp/kirocli.zip
 ENV PATH="/root/.local/bin:${PATH}"
 
