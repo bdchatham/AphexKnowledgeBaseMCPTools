@@ -1,0 +1,10 @@
+dist/
+node_modules/
+*.tsbuildinfo
+.git/
+tests/
+.kiro/
+*.test.ts
+*.spec.ts
+*.md
+!proto/

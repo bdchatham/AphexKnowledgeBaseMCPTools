@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "aphex-knowledge-base": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["/app/dist/server.js"]
+    }
+  }
+}
