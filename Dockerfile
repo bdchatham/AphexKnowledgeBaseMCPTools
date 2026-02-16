@@ -43,7 +43,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev --ignore-scripts
 COPY --from=build /app/dist/ dist/
-COPY proto/ proto/
+COPY proto/ dist/proto/
 
 # Kiro MCP config — tells Kiro how to reach the local MCP server
 RUN mkdir -p /root/.kiro/settings
