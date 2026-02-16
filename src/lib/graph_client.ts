@@ -49,6 +49,7 @@ export class GraphClient {
     });
 
     if (!response.ok) {
+      await response.body?.cancel();
       throw new Error(`GraphQL request failed: ${response.status} ${response.statusText}`);
     }
 

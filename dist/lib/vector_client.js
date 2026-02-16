@@ -84,6 +84,7 @@ export class VectorClient {
                 body: JSON.stringify({ input: batch }),
             });
             if (!response.ok) {
+                await response.body?.cancel();
                 throw new Error(`Embedding request failed: ${response.status}`);
             }
             const result = (await response.json());
@@ -94,8 +95,10 @@ export class VectorClient {
     }
     async ensureCollection() {
         const response = await fetch(`${this.qdrantUrl}/collections/${COLLECTION_NAME}`);
-        if (response.ok)
+        if (response.ok) {
+            await response.body?.cancel();
             return;
+        }
         const createResponse = await fetch(`${this.qdrantUrl}/collections/${COLLECTION_NAME}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -105,8 +108,10 @@ export class VectorClient {
             }),
         });
         if (!createResponse.ok) {
+            await createResponse.body?.cancel();
             throw new Error(`Failed to create collection: ${createResponse.status}`);
         }
+        await createResponse.body?.cancel();
     }
     async upsertChunks(chunks) {
         if (chunks.length === 0)
@@ -138,8 +143,10 @@ export class VectorClient {
                 body: JSON.stringify({ points }),
             });
             if (!response.ok) {
+                await response.body?.cancel();
                 throw new Error(`Qdrant upsert failed: ${response.status}`);
             }
+            await response.body?.cancel();
             totalUpserted += batchChunks.length;
         }
         return totalUpserted;
@@ -158,8 +165,10 @@ export class VectorClient {
                 exact: true,
             }),
         });
-        if (!countResponse.ok)
+        if (!countResponse.ok) {
+            await countResponse.body?.cancel();
             return 0;
+        }
         const countResult = (await countResponse.json());
         const staleCount = countResult.result.count;
         if (staleCount === 0)
@@ -170,11 +179,12 @@ export class VectorClient {
                 ? { must_not: [{ key: "arn", match: { any: currentArns } }] }
                 : {}),
         };
-        await fetch(`${this.qdrantUrl}/collections/${COLLECTION_NAME}/points/delete`, {
+        const deleteResponse = await fetch(`${this.qdrantUrl}/collections/${COLLECTION_NAME}/points/delete`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ filter }),
         });
+        await deleteResponse.body?.cancel();
         return staleCount;
     }
 }

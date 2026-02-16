@@ -31,6 +31,7 @@ export class GraphClient {
             body: JSON.stringify({ query, variables }),
         });
         if (!response.ok) {
+            await response.body?.cancel();
             throw new Error(`GraphQL request failed: ${response.status} ${response.statusText}`);
         }
         const result = (await response.json());

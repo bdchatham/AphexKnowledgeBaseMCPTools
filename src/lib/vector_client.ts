@@ -120,6 +120,7 @@ export class VectorClient {
       });
 
       if (!response.ok) {
+        await response.body?.cancel();
         throw new Error(`Embedding request failed: ${response.status}`);
       }
 
@@ -139,7 +140,10 @@ export class VectorClient {
       `${this.qdrantUrl}/collections/${COLLECTION_NAME}`
     );
 
-    if (response.ok) return;
+    if (response.ok) {
+      await response.body?.cancel();
+      return;
+    }
 
     const createResponse = await fetch(
       `${this.qdrantUrl}/collections/${COLLECTION_NAME}`,
@@ -154,8 +158,10 @@ export class VectorClient {
     );
 
     if (!createResponse.ok) {
+      await createResponse.body?.cancel();
       throw new Error(`Failed to create collection: ${createResponse.status}`);
     }
+    await createResponse.body?.cancel();
   }
 
   async upsertChunks(chunks: DocChunk[]): Promise<number> {
@@ -197,8 +203,10 @@ export class VectorClient {
       );
 
       if (!response.ok) {
+        await response.body?.cancel();
         throw new Error(`Qdrant upsert failed: ${response.status}`);
       }
+      await response.body?.cancel();
 
       totalUpserted += batchChunks.length;
     }
@@ -227,7 +235,10 @@ export class VectorClient {
       }
     );
 
-    if (!countResponse.ok) return 0;
+    if (!countResponse.ok) {
+      await countResponse.body?.cancel();
+      return 0;
+    }
 
     const countResult = (await countResponse.json()) as {
       result: { count: number };
@@ -243,7 +254,7 @@ export class VectorClient {
         : {}),
     };
 
-    await fetch(
+    const deleteResponse = await fetch(
       `${this.qdrantUrl}/collections/${COLLECTION_NAME}/points/delete`,
       {
         method: "POST",
@@ -251,6 +262,7 @@ export class VectorClient {
         body: JSON.stringify({ filter }),
       }
     );
+    await deleteResponse.body?.cancel();
 
     return staleCount;
   }
