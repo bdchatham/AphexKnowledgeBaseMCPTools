@@ -164,6 +164,7 @@ export async function syncToKnowledgeBase(input) {
         }
         catch (error) {
             const errorMessage = error instanceof Error ? error.message : String(error);
+            console.error(`[sync] ${packageName} failed: ${errorMessage}`);
             errors.push({ package: packageName, error: errorMessage });
         }
     }
